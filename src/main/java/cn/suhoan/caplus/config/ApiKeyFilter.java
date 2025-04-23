@@ -50,11 +50,17 @@ public class ApiKeyFilter implements Filter {
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
 
-        if (!httpServletRequest.getRequestURI().contains("/api")){
+        String uri = httpServletRequest.getRequestURI();
+        if (uri.contains("/api") 
+                || uri.contains(".html")
+                || uri.contains(".js")
+                || uri.contains(".css")
+                || uri.contains(".png")
+                || uri.contains(".ico")) {
             filterChain.doFilter(servletRequest, servletResponse);
             return;
         }
-        
+
         String header = httpServletRequest.getHeader(REQUIRED_HEADER);
         if (!StringUtils.hasText(header)) {
             log.warn("请求未携带api-key，拒绝");

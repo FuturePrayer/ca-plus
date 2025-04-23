@@ -31,5 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+
 /ca.mv.db
 /ca.trace.db
+/data/

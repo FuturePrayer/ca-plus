@@ -26,7 +26,7 @@ public class UserService {
         if (StringUtils.hasText(username)) {
             this.username = username;
         } else if (StringUtils.hasText(System.getenv("CAPLUS_USERNAME"))) {
-            this.username = System.getenv("CAPLUS_USERNAME");
+            this.username = System.getenv("CAPLUS_USERNAME").trim();
         } else {
             this.username = "admin";
             log.info("未配置自定义用户名，使用默认用户名：{}", this.username);
@@ -35,7 +35,7 @@ public class UserService {
         if (StringUtils.hasText(password)) {
             this.password = password;
         } else if (StringUtils.hasText(System.getenv("CAPLUS_PASSWORD"))) {
-            this.password = System.getenv("CAPLUS_PASSWORD");
+            this.password = System.getenv("CAPLUS_PASSWORD").trim();
         } else {
             this.password = SaSecureUtil.sha256(UUID.randomUUID().toString());
             log.info("未配置自定义密码，使用随机生成密码： {}", this.password);

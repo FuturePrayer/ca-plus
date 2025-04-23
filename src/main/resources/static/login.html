@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录 - CenturyAvenue-Plus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/supplier.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <style>
+        .custom-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            object-fit: contain;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .login-container {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .login-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: -0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .forgot-password a {
+            color: var(--primary-color);
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="card login-container">
+        <div class="card-body">
+            <div class="login-header">
+                <img src="img/logo.png" alt="系统Logo" class="custom-logo">
+                <h1>CenturyAvenue-Plus</h1>
+            </div>
+
+            <form id="loginForm" class="form">
+                <div class="form-group">
+                    <label for="username" class="form-label">
+                        <span class="label-text">用户名</span>
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名"
+                               required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label">
+                        <span class="label-text">密码</span>
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" name="password" class="form-control"
+                               placeholder="请输入密码" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-submit btn-login">
+                        <i class="fas fa-sign-in-alt"></i> 登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let from = getUrlParam('from');
+    if (from) {
+        showAlert('请先登录!', 'error')
+        from = decodeURIComponent(from);
+    } else {
+        from = 'index.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        $.ajax({
+            url: '/api/user/login',
+            type: 'POST',
+            data: JSON.stringify({
+                username: username,
+                password: password
+            }),
+            dataType: 'json',
+            contentType: 'application/json',
+            beforeSend: function () {
+                $('#supplierList').html('<tr><td colspan="5" class="loading"><i class="fas fa-spinner fa-spin"></i> 加载中...</td></tr>');
+            },
+            success: function (response) {
+                if (response.code == 0) {
+                    // 登录成功
+                    showAlert('登录成功!', 'success');
+                    // 页面跳转
+                    window.location.href = from;
+                } else {
+                    showAlert('登录失败: ' + response.msg, 'error');
+                }
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error('AJAX请求失败:', xhr.status, textStatus, errorThrown);
+                showAlert('登录失败！', 'error');
+            }
+        });
+    });
+
+    function showAlert(message, type) {
+        const alertEl = document.createElement('div');
+        alertEl.className = `alert alert-${type}`;
+        alertEl.innerHTML = `
+        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+        ${message}
+        <button class="close-alert"><i class="fas fa-times"></i></button>
+    `;
+        document.body.appendChild(alertEl);
+
+        setTimeout(() => {
+            alertEl.classList.add('fade-out');
+            setTimeout(() => alertEl.remove(), 300);
+        }, 3000);
+
+        alertEl.querySelector('.close-alert').addEventListener('click', () => {
+            alertEl.classList.add('fade-out');
+            setTimeout(() => alertEl.remove(), 300);
+        });
+    }
+
+    function getUrlParam(paramName) {
+        // 获取URL的查询部分（去掉问号）
+        var queryString = window.location.search.substring(1);
+        // 初始化参数对象
+        var params = {};
+
+        // 拆分键值对
+        queryString.split('&').forEach(function (pair) {
+            var parts = pair.split(/=(.*)/, 2); // 分割键和值（允许值中包含等号）
+            var key = decodeURIComponent(parts[0]);
+            var value = parts[1] ? decodeURIComponent(parts[1]) : '';
+            params[key] = value;
+        });
+
+        return params[paramName] || '';
+    }
+</script>
+</body>
+</html>

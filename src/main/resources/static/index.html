@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>供应商列表 - CenturyAvenue-Plus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/supplier.css">
+    <link rel="stylesheet" href="css/overlay.css">
+    <link rel="stylesheet" href="css/confirmation.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+<div id="overlay-mask" class="overlay-mask">
+    <div class="loader"></div>
+</div>
+<div class="app-container">
+    <div class="card">
+        <div class="card-header">
+            <h1><i class="fas fa-list"></i> 供应商列表</h1>
+        </div>
+
+        <div class="card-toolbar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="搜索供应商...">
+            </div>
+            <button id="newSupplier" class="btn btn-default">
+                <i class="fas fa-plus"></i> 新增供应商
+            </button>
+            <button id="expandAll" class="btn btn-default">
+                <i class="fas fa-expand"></i> 全部展开
+            </button>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="supplier-table">
+                    <thead>
+                    <tr>
+                        <th style="width: 40px"></th>
+                        <th>供应商名称</th>
+                        <th>基础URL</th>
+                        <th>供应商类型</th>
+                        <th>状态</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody id="supplierList">
+                    <!-- 数据将通过AJAX加载 -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination-container">
+                <div class="pagination-info" id="paginationInfo"></div>
+                <div class="pagination-controls">
+                    <button id="prevPage" class="btn btn-pagination" disabled>
+                        <i class="fas fa-chevron-left"></i> 上一页
+                    </button>
+                    <div class="page-numbers" id="pageNumbers"></div>
+                    <button id="nextPage" class="btn btn-pagination">
+                        下一页 <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="confirmation-overlay" id="confirmationOverlay">
+    <div class="confirmation-dialog">
+        <div class="dialog-icon">
+            <i class="fas fa-exclamation-circle"></i>
+        </div>
+        <h3 class="dialog-title">确认删除</h3>
+        <p class="dialog-message">您确定要删除这个项目吗？此操作无法撤销。</p>
+        <div class="dialog-buttons">
+            <button class="dialog-btn cancel-btn">取消</button>
+            <button class="dialog-btn confirm-btn">确认删除</button>
+        </div>
+    </div>
+</div>
+
+<!-- 模型列表模板 -->
+<script type="text/template" id="modelListTemplate">
+    <tr class="model-row">
+        <td></td> <!-- 空列对齐展开按钮列 -->
+        <td colspan="5"> <!-- 合并剩余所有列 -->
+            <div class="model-list-container">
+                <table class="model-table">
+                    <thead>
+                    <tr>
+                        <th>模型名称</th>
+                        <th>实际模型名称</th>
+                        <th>模型类型</th>
+                    </tr>
+                    </thead>
+                    <tbody class="model-list">
+                    <!-- 模型数据将通过JS动态填充 -->
+                    </tbody>
+                </table>
+            </div>
+        </td>
+    </tr>
+</script>
+
+<!-- 操作按钮模板 -->
+<script type="text/template" id="actionButtonsTemplate">
+    <div class="action-buttons">
+        <button class="btn btn-action btn-primary">
+            <i class="fas fa-edit"></i> 编辑
+        </button>
+        <button class="btn btn-action btn-danger">
+            <i class="fas fa-trash-alt"></i> 删除
+        </button>
+        <button class="btn btn-action btn-success">
+            <i class="fas fa-toggle-on"></i> <!--ENABLED_TEXT-->
+        </button>
+    </div>
+</script>
+
+<script src="js/confirmation.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新增大模型供应商 - CenturyAvenue-Plus</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/supplier.css">
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="js/supplier.js"></script>
+</head>
+<body>
+<div class="app-container">
+    <div class="card">
+        <div class="card-header">
+            <h1><i class="fas fa-plus-circle"></i> 新增大模型供应商</h1>
+        </div>
+        <div class="card-body">
+            <form id="supplierForm" class="form">
+                <input type="hidden" id="id" name="id" value="">
+                <div class="form-group">
+                    <label for="name" class="form-label">
+                        <span class="label-text">供应商名称</span>
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="name" name="name" class="form-control" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="baseUrl" class="form-label">
+                        <span class="label-text">基础URL</span>
+                        <span class="required">*</span>
+                    </label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-link"></i>
+                        <input type="url" id="baseUrl" name="baseUrl" class="form-control" value="https://api.openai.com/v1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="type" class="form-label">供应商类型</label>
+                    <div class="input-with-icon">
+                        <i class="fas fa-cubes"></i>
+                        <select id="type" name="type" class="form-control">
+                            <option value="0">OpenAI兼容</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-section-title">
+                        <span class="label-text">模型列表</span>
+                        <button type="button" id="addModel" class="btn btn-add">
+                            <i class="fas fa-plus"></i> 添加模型
+                        </button>
+                    </div>
+                    <div id="modelList" class="dynamic-list">
+                        <div class="dynamic-item model-item">
+                            <div class="dynamic-item-content">
+                                <div class="input-with-icon">
+                                    <i class="fas fa-cube"></i>
+                                    <input type="text" name="modelName" class="form-control" placeholder="模型名称" required>
+                                </div>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-project-diagram"></i>
+                                    <input type="text" name="realModelName" class="form-control" placeholder="实际模型名称">
+                                </div>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-cubes"></i>
+                                    <select id="modelType" name="modelType" class="form-control">
+                                        <option value="0">聊天补全模型</option>
+                                        <option value="1">嵌入模型</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-remove remove-model">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="weight-explanation">
+                        <i class="fas fa-info-circle"></i>
+                        【模型名称】表示调用century_avenue_plus时使用的模型名称。<br>
+                        【实际模型名称】表示调用大模型供应商（也就是你填写的【基础URL】）时使用的模型名称，默认和【模型名称】一致。
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-section-title">
+                        <span class="label-text">API Key列表</span>
+                        <button type="button" id="addKey" class="btn btn-add">
+                            <i class="fas fa-plus"></i> 添加API Key
+                        </button>
+                    </div>
+                    <div id="keyList" class="dynamic-list">
+                        <div class="dynamic-item key-item">
+                            <div class="dynamic-item-content">
+                                <div class="input-with-icon">
+                                    <i class="fas fa-key"></i>
+                                    <input type="text" name="apiKey" class="form-control" placeholder="API Key" required>
+                                </div>
+                                <div class="input-with-icon">
+                                    <i class="fas fa-balance-scale"></i>
+                                    <input type="number" name="weight" class="form-control" placeholder="权重，默认1" min="1">
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-remove remove-key">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="weight-explanation">
+                        <i class="fas fa-info-circle"></i>
+                        当配置了多个API Key时会随机抽取一个API Key使用，权重越高，被抽中的概率越高。
+                    </p>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-save"></i> 提交供应商信息
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

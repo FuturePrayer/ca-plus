@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: ca-plus
+  threads:
+    virtual:
+      enabled: true
+  ai:
+    openai:
+      api-key: "111"
+  datasource:
+    url: jdbc:h2:file:./ca
+    driverClassName: org.h2.Driver
+    username: century_avenue
+    password: century_avenue
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: cn.suhoan.caplus.jpa.MyH2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+server:
+  port: 14523
+sa-token:
+  token-name: captoken
+  timeout: 2592000
+  active-timeout: 604800
+  is-concurrent: false
+  is-share: false
+  token-style: uuid
+  is-log: true
+  is-print: false

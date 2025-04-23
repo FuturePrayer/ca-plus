@@ -1,0 +1,91 @@
+/* 确认框样式 */
+.confirmation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.confirmation-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.confirmation-dialog {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    padding: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+.confirmation-overlay.active .confirmation-dialog {
+    transform: translateY(0);
+}
+
+.dialog-icon {
+    font-size: 48px;
+    color: #ff4757;
+    margin-bottom: 20px;
+}
+
+.dialog-title {
+    margin: 0 0 15px;
+    color: #333;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.dialog-message {
+    color: #666;
+    margin: 0 0 25px;
+    line-height: 1.5;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.dialog-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 100px;
+}
+
+.cancel-btn {
+    background-color: #f1f2f6;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background-color: #dfe4ea;
+}
+
+.confirm-btn {
+    background-color: #ff4757;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background-color: #ff6b81;
+}

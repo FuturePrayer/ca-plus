@@ -8,7 +8,7 @@ spring:
     openai:
       api-key: "111"
   datasource:
-    url: jdbc:h2:file:./ca
+    url: jdbc:h2:file:./data/ca
     driverClassName: org.h2.Driver
     username: century_avenue
     password: century_avenue

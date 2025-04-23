@@ -10,12 +10,15 @@
     </parent>
     <groupId>cn.suhoan</groupId>
     <artifactId>ca-plus</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>ca-plus</name>
     <description>A tool that maps the API of commercial or open-source large language models to OpenAI-style APIs.</description>
     <url/>
     <licenses>
-        <license/>
+        <license>
+            <name>Apache-2.0</name>
+            <url>https://github.com/FuturePrayer/ca-plus/blob/master/LICENSE</url>
+        </license>
     </licenses>
     <developers>
         <developer/>
@@ -86,6 +89,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>ca-plus</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

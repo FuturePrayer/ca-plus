@@ -49,6 +49,12 @@ public class ApiKeyFilter implements Filter {
         }
 
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
+
+        if (!httpServletRequest.getRequestURI().contains("/api")){
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+        
         String header = httpServletRequest.getHeader(REQUIRED_HEADER);
         if (!StringUtils.hasText(header)) {
             log.warn("请求未携带api-key，拒绝");

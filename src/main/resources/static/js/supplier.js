@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             </div>
                             <div class="input-with-icon">
                                 <i class="fas fa-balance-scale"></i>
-                                <input type="number" name="weight" class="form-control" placeholder="权重" value="${key.weight}" min="1">
+                                <input type="number" name="weight" class="form-control" placeholder="权重，默认1" value="${key.weight}" min="1">
                             </div>
                         </div>
                         <button type="button" class="btn btn-remove remove-key">
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 </div>
                 <div class="input-with-icon">
                     <i class="fas fa-balance-scale"></i>
-                    <input type="number" name="weight" class="form-control" placeholder="权重" value="1" min="1">
+                    <input type="number" name="weight" class="form-control" placeholder="权重，默认1" min="1">
                 </div>
             </div>
             <button type="button" class="btn btn-remove remove-key">
